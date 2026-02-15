@@ -8,6 +8,21 @@ This script gathers detailed network adapter information and performs connectivi
 
 ## Features
 
+### System Information
+- **User Information**
+  - Username
+  - User Domain
+  - User DNS Domain
+
+- **System Details**
+  - Computer Name
+  - System Manufacturer and Model
+  - BIOS Date and Version
+  - OS Build Number
+  - Machine ID (GUID)
+  - MDM Enrollment Status
+  - System Uptime
+
 ### Network Adapter Information
 - **Basic Information**
   - Interface description
@@ -39,11 +54,23 @@ This script gathers detailed network adapter information and performs connectivi
 - Authentication method
 - Signal strength
 
-### WLAN Event Log Analysis (Last 24 Hours)
-- **Disconnect Events** - Tracks unexpected disconnections
-- **Roaming Events** - Access point handoffs
+### Route Table Information
+- Complete IPv4 routing table
+- Destination networks with subnet masks
+- Gateway addresses ("On-link" for direct connections)
+- Interface assignments
+- Route metrics
+- Summary statistics (total routes, default routes)
+
+### WLAN Event Log Analysis (Configurable Timeframe: 1, 3, or 7 Days)
+- **Connection Events** - Successful wireless connections with timestamps
+- **Disconnection Events** - Wireless disconnections with detailed reasons
+- **AP Disconnect/Connect Events** - Access point roaming and handoffs
 - **Authentication Failures** - Connection attempt failures
+- **Event Pattern Analysis** - Connection/disconnection ratio with warnings
+- **Detailed Event Tables** - Formatted output showing timestamps, event IDs, and extracted details (SSID, MAC address)
 - Event summary with counts and timestamps
+- **Configurable timeframe:** 1, 3, or 7 days (default: 1 day)
 
 ### Connectivity Tests
 - **Gateway connectivity** - Tests each adapter's default gateway
@@ -57,11 +84,13 @@ All tests include:
 - Packet loss detection
 
 ### HTML Report Export
-- Professional, styled HTML report
+- Professional, styled HTML report with consistent 25/75 column layouts
 - Automatic save to `C:\install\NetworkAdapterReport_YYYYMMDD_HHMMSS.html`
-- Color-coded status indicators
+- Color-coded status indicators (green=success, red=failed, yellow=warning)
 - Opens automatically in default browser
 - Perfect for email attachments and documentation
+- Includes all system information, adapters, routes, and WLAN events
+- Properly formatted multi-column tables for route and event data
 
 ## Requirements
 
@@ -81,7 +110,7 @@ All tests include:
 ### Method 1: Right-Click Execution
 1. Right-click on `Get-NetworkAdapterInfo.ps1`
 2. Select **"Run with PowerShell"**
-3. The script will execute and display results in the console
+3. The script will execute and display results in the console (default: 1 day of WLAN events)
 4. HTML report will open automatically in your browser
 
 ### Method 2: PowerShell Console
@@ -89,22 +118,53 @@ All tests include:
 # Navigate to script location
 cd C:\Scripts
 
-# Execute the script
+# Execute with default settings (1 day of WLAN events)
 .\Get-NetworkAdapterInfo.ps1
+
+# Execute with 3 days of WLAN events
+.\Get-NetworkAdapterInfo.ps1 -WlanEventDays 3
+
+# Execute with 7 days of WLAN events
+.\Get-NetworkAdapterInfo.ps1 -WlanEventDays 7
 ```
 
 ### Method 3: Remote Execution
 For remote troubleshooting scenarios:
 ```powershell
-# Using PowerShell remoting
-Invoke-Command -ComputerName REMOTE-PC -FilePath .\Get-NetworkAdapterInfo.ps1
+# Using PowerShell remoting (with custom WLAN timeframe)
+Invoke-Command -ComputerName REMOTE-PC -FilePath .\Get-NetworkAdapterInfo.ps1 -ArgumentList 3
 
-# Copy script to remote machine first, then execute
+# Copy script to remote machine first, then execute with 7 days of events
 Copy-Item .\Get-NetworkAdapterInfo.ps1 -Destination "\\REMOTE-PC\C$\Temp\"
 Invoke-Command -ComputerName REMOTE-PC -ScriptBlock {
-    C:\Temp\Get-NetworkAdapterInfo.ps1
+    C:\Temp\Get-NetworkAdapterInfo.ps1 -WlanEventDays 7
 }
 ```
+
+## Script Parameters
+
+### -WlanEventDays
+**Type:** Integer  
+**Valid Values:** 1, 3, 7  
+**Default:** 1  
+**Description:** Specifies how many days of WLAN event logs to retrieve and analyze.
+
+**Examples:**
+```powershell
+# Default - last 1 day
+.\Get-NetworkAdapterInfo.ps1
+
+# Last 3 days - useful for intermittent issues
+.\Get-NetworkAdapterInfo.ps1 -WlanEventDays 3
+
+# Last 7 days - comprehensive analysis for recurring problems
+.\Get-NetworkAdapterInfo.ps1 -WlanEventDays 7
+```
+
+**Use Cases:**
+- **1 Day (Default):** Quick troubleshooting of current issues
+- **3 Days:** Investigation of intermittent connectivity problems
+- **7 Days:** Comprehensive analysis for recurring or pattern-based issues
 
 ## Customization
 
@@ -147,7 +207,25 @@ Network Adapter Information Report
 Generated: 2025-02-15 14:30:00
 ========================================
 
-Host Name: DESKTOP-ABC123
+System Information
+----------------------------------------
+
+User Info:
+  Username: john.smith
+  User Domain: CORPORATE
+  User DNS Domain: corporate.company.com
+
+System Info:
+  ComputerName: LAPTOP-ABC123
+  System Manufacturer: Dell Inc.
+  System Product Name: Latitude 7420
+  BIOS Date: 2024-08-15
+  BIOS Version: 1.25.0
+  OS Build: 10.0.22631 (Build 22631)
+  Machine Id: 12345678-90ab-cdef-1234-567890abcdef
+  MDM Joined: Yes
+  UpTime: 3 days, 14 hours, 22 minutes
+  WLAN Event Log Timeframe: Last 1 day
 
 ┌─────────────────────────────────────────────────────────────
 │ Adapter: Wi-Fi
@@ -157,23 +235,52 @@ Host Name: DESKTOP-ABC123
   Status: Up
   MAC Address (Physical Address): 12:34:56:78:9A:BC
   Link Speed: 1.2 Gbps
-
-  Driver Information:
-    Driver Version: 22.140.0.7
+  
+  Wireless Information:
+    SSID: Corporate-WiFi
+    Band: 5 GHz
+    Signal Strength: 95%
     ...
 
-  IPv4 Address: 192.168.1.100
-  Subnet Mask: 255.255.255.0 (/24)
-  Default Gateway: 192.168.1.1
-  ...
+========================================
+WLAN Event Log Analysis
+Timeframe: Last 1 day
+========================================
+
+Event Summary:
+  Total WLAN events: 45
+  Connections: 8
+  Disconnections: 15
+  AP Disconnect/Connect: 12
+  Authentication failures: 2
+
+Connection Events:
+
+  TimeStamp            | Id     | Message
+  -------------------- | ------ | -------
+  2025-02-15 09:15:23 | 8001   | Wireless security started | MAC: AA:BB:CC:DD:EE:FF | SSID: Corporate-WiFi
+
+Disconnection Events:
+
+  TimeStamp            | Id     | Message
+  -------------------- | ------ | -------
+  2025-02-15 10:45:12 | 8003   | WLAN disconnect complete | MAC: AA:BB:CC:DD:EE:FF | SSID: Corporate-WiFi
+
+Connection Pattern Analysis:
+  Connection/Disconnection Ratio: 8:15
+  WARNING: More disconnections than connections detected!
+  This may indicate a persistent connectivity problem.
 ```
 
 ### HTML Report
 The HTML report includes all the same information with:
-- Professional styling and layout
+- Professional styling and layout with consistent 25/75 column widths
 - Color-coded status indicators
-- Organized tables
-- Easy-to-read formatting
+- System information section at the top
+- Organized tables for all adapters
+- Route table with complete routing information
+- Full WLAN event logs with formatted tables
+- Connectivity test results
 - Printer-friendly design
 
 ## Troubleshooting
@@ -286,6 +393,32 @@ This script is provided as-is for corporate IT use. Modify and distribute as nee
 
 ## Changelog
 
+### Version 1.2 (Current)
+- **System Information Section:** Added comprehensive user and system details
+  - User: Username, Domain, DNS Domain
+  - System: Manufacturer, Model, BIOS, OS Build, Machine ID, MDM Status, Uptime
+- **Enhanced WLAN Event Logs:** Moved to standalone section after connectivity tests
+  - Now tracks BOTH connection AND disconnection events
+  - Renamed "Roaming Events" to "AP Disconnect/Connect Events"
+  - Formatted table output (TimeStamp | Id | Message)
+  - Intelligent message extraction (first line, MAC address, SSID)
+  - Connection pattern analysis with warnings
+  - Displays up to 15 events per category (increased from 10)
+  - Full HTML integration with all event details
+- **Route Table Display:** Complete IPv4 routing table with gateway, interface, and metrics
+- **HTML Report Improvements:**
+  - Fixed column width ratios (25/75) for all two-column tables
+  - System information included in report
+  - Wireless information now appears in HTML
+  - Proper table formatting for multi-column tables (routes, events)
+  - Consistent styling across all sections
+
+### Version 1.1
+- Added configurable WLAN event log timeframe parameter (-WlanEventDays)
+- Support for 1, 3, or 7 days of WLAN event history
+- Added route table information display
+- Enhanced HTML report with route table data
+
 ### Version 1.0 (Initial Release)
 - Basic adapter information gathering
 - Driver details collection
@@ -293,7 +426,7 @@ This script is provided as-is for corporate IT use. Modify and distribute as nee
 - Connectivity testing with 5 pings
 - HTML report generation
 - Wireless-specific information
-- WLAN event log analysis
+- WLAN event log analysis (24 hours)
 - Corporate endpoint customization
 - Detailed response time metrics (avg/min/max)
 - Packet loss detection
