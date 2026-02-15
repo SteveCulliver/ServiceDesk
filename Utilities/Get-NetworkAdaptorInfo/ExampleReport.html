@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Adapter Information Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0078d4;
+            border-bottom: 3px solid #0078d4;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #005a9e;
+            margin-top: 30px;
+            border-left: 4px solid #0078d4;
+            padding-left: 10px;
+        }
+        h3 {
+            color: #106ebe;
+            margin-top: 20px;
+        }
+        .info-section {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+        }
+        .adapter-box {
+            background-color: #fff;
+            border: 2px solid #0078d4;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            table-layout: fixed;
+        }
+        /* Column widths ONLY for two-column info tables */
+        table.info-table td:first-child:not([colspan]),
+        table.info-table th:first-child:not([colspan]) {
+            width: 25%;
+        }
+        table.info-table td:last-child:not([colspan]),
+        table.info-table th:last-child:not([colspan]) {
+            width: 75%;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #0078d4;
+            color: white;
+            font-weight: bold;
+        }
+        .success {
+            color: #107c10;
+            font-weight: bold;
+        }
+        .failed {
+            color: #d13438;
+            font-weight: bold;
+        }
+        .warning {
+            color: #ff8c00;
+            font-weight: bold;
+        }
+        .label {
+            font-weight: bold;
+            color: #005a9e;
+            display: inline-block;
+            min-width: 200px;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .event-log {
+            background-color: #fffef0;
+            border-left: 4px solid #ff8c00;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .summary-box {
+            background-color: #e6f3ff;
+            border: 1px solid #0078d4;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Network Adapter Information Report</h1>
+        <div class="info-section">
+            <p><span class="label">Generated:</span> 2026-02-15 21:16:45</p>
+            <p><span class="label">WLAN Event Log Timeframe:</span> Last 7 days</p>
+        </div>
+        
+        <h2>System Information</h2>
+        <div class="info-section">
+            <h3>User Info</h3>
+            <table class="info-table">
+                <tr><td class="label">Username</td><td>MyUser</td></tr>
+                <tr><td class="label">User Domain</td><td>DESKTOP</td></tr>
+                <tr><td class="label">User DNS Domain</td><td></td></tr>
+            </table>
+            
+            <h3>System Info</h3>
+            <table class="info-table">
+                <tr><td class="label">ComputerName</td><td>DESKTOP</td></tr>
+                <tr><td class='label'>System Manufacturer</td><td>LENOVO</td></tr>
+                <tr><td class='label'>System Product Name</td><td>ABCDEFGH</td></tr>
+                <tr><td class='label'>BIOS Date</td><td>2025-11-11</td></tr>
+                <tr><td class='label'>BIOS Version</td><td>N2HET84W (1.67 )</td></tr>
+                <tr><td class='label'>OS Build</td><td>10.0.26200 (Build 26200)</td></tr>
+                <tr><td class='label'>Machine Id</td><td>0a0a0a0a-1b1b-2c2c-3d3d-4d4d5e5e6f6f</td></tr>
+                <tr><td class='label'>MDM Joined</td><td class='success'>Yes</td></tr>
+                <tr><td class='label'>UpTime</td><td>9 days, 0 hours, 48 minutes</td></tr>
+            </table>
+        </div>
+        <div class="adapter-box">
+            <h2>Adapter: Wi-Fi</h2>
+            <h3>Basic Information</h3>
+            <table class="info-table">
+                <tr><td class="label">Interface Description</td><td>Intel(R) Wireless-AC 9560 160MHz</td></tr>
+                <tr><td class="label">Status</td><td class="success">Up</td></tr>
+                <tr><td class="label">MAC Address</td><td>1A-2B-3C-4D-5E-6F</td></tr>
+                <tr><td class="label">Link Speed</td><td>866.7 Mbps</td></tr>
+            </table>
+            
+            <h3>Driver Information</h3>
+            <table class="info-table">
+                <tr><td class="label">Driver Description</td><td>Driver Date 2025-01-02 Version 23.110.0.5 NDIS 6.60</td></tr>
+                <tr><td class="label">Driver File Name</td><td>Netwtw08.sys</td></tr>
+                <tr><td class="label">Driver Version</td><td>23.110.0.5</td></tr>
+                <tr><td class="label">Interface Description</td><td>Intel(R) Wireless-AC 9560 160MHz</td></tr>
+            </table>
+
+            <h3>Wireless Information</h3>
+            <table class='info-table'>
+                <tr><td class='label'>Interface Type</td><td>Primary</td></tr>
+                <tr><td class='label'>State</td><td class='success'>connected</td></tr>
+                <tr><td class='label'>SSID</td><td>HomeNetwork</td></tr>
+                <tr><td class='label'>BSSID (Access Point)</td><td>7c:10:c9:b5:7b:24</td></tr>
+                <tr><td class='label'>Band</td><td>5 GHz</td></tr>
+                <tr><td class='label'>Channel</td><td>100</td></tr>
+                <tr><td class='label'>Radio Type</td><td>802.11ac</td></tr>
+                <tr><td class='label'>Authentication</td><td>WPA2-Personal</td></tr>
+                <tr><td class='label'>Signal Strength</td><td>93%</td></tr>
+            </table>
+
+            <h3>IP Configuration</h3>
+            <table class='info-table'><tr><td class='label'>IPv4 Address</td><td>192.168.1.41</td></tr>
+                <tr><td class='label'>Subnet Mask</td><td>255.255.255.0 (/24)</td></tr>
+                <tr><td class='label'>Default Gateway</td><td>192.168.1.1</td></tr>
+                <tr><td class='label'>DNS Servers</td><td>192.168.1.1<br></td></tr>
+                <tr><td class='label'>DHCP Enabled</td><td>Enabled</td></tr>
+                <tr><td class='label'>IPv6 Address</td><td>fd51:dda9:a962:db82:4445:abd0:3526:f116</td></tr>
+            </table>
+        </div>
+
+        <h2>Route Table</h2>
+        <table>
+            <tr><th>Destination</th><th>Netmask</th><th>Gateway</th><th>Interface</th><th>Metric</th></tr>
+            <tr><td>0.0.0.0</td><td>0.0.0.0</td><td>192.168.1.1</td><td>Wi-Fi 2</td><td>0</td></tr>
+            <tr><td>127.0.0.0</td><td>255.0.0.0</td><td>On-link</td><td>Interface 1</td><td>256</td></tr>
+            <tr><td>127.0.0.1</td><td>255.255.255.255</td><td>On-link</td><td>Interface 1</td><td>256</td></tr>
+            <tr><td>127.255.255.255</td><td>255.255.255.255</td><td>On-link</td><td>Interface 1</td><td>256</td></tr>
+            <tr><td>192.168.1.0</td><td>255.255.255.0</td><td>On-link</td><td>Wi-Fi 2</td><td>256</td></tr>
+            <tr><td>192.168.1.255</td><td>255.255.255.255</td><td>On-link</td><td>Wi-Fi 2</td><td>256</td></tr>
+            <tr><td>192.168.1.41</td><td>255.255.255.255</td><td>On-link</td><td>Wi-Fi 2</td><td>256</td></tr>
+            <tr><td>224.0.0.0</td><td></td><td>On-link</td><td>Interface 21</td><td>256</td></tr>
+            <tr><td>224.0.0.0</td><td></td><td>On-link</td><td>Interface 6</td><td>256</td></tr>
+            <tr><td>224.0.0.0</td><td></td><td>On-link</td><td>Ethernet 2</td><td>256</td></tr>
+            <tr><td>224.0.0.0</td><td></td><td>On-link</td><td>Wi-Fi 2</td><td>256</td></tr>
+            <tr><td>224.0.0.0</td><td></td><td>On-link</td><td>Bluetooth Network Connection 2</td><td>256</td></tr>
+            <tr><td>224.0.0.0</td><td></td><td>On-link</td><td>Ethernet 8</td><td>256</td></tr>
+            <tr><td>224.0.0.0</td><td></td><td>On-link</td><td>Interface 1</td><td>256</td></tr>
+        </table>
+        
+        <h2>Connectivity Tests</h2>
+        <table class='info-table'>
+            <tr><th>Endpoint</th><th>Result</th></tr>
+            <tr><td class='label'>Default Gateway (192.168.1.1)</td><td class='success'>SUCCESS<br>Avg: 5.4 ms (Min: 2 ms, Max: 12 ms)</td></tr>
+            <tr><td class='label'>Google DNS (8.8.8.8)</td><td class='success'>SUCCESS<br>Avg: 7.2 ms (Min: 7 ms, Max: 8 ms)</td></tr>
+            <tr><td class='label'>Google.com (google.com)</td><td class='success'>SUCCESS<br>Avg: 8 ms (Min: 7 ms, Max: 10 ms)</td></tr>
+        </table>
+        
+        <h2>WLAN Event Log Analysis (Last 7 Days)</h2>
+        <div class="summary-box">
+            <h3>Event Summary</h3>
+            <table class="info-table">
+                <tr><td class="label">Total WLAN Events</td><td>11</td></tr>
+                <tr><td class="label">Connections</td><td class="success">0</td></tr>
+                <tr><td class="label">Disconnections</td><td class="success">0</td></tr>
+                <tr><td class="label">AP Disconnect/Connect</td><td>3</td></tr>
+                <tr><td class="label">Authentication Failures</td><td class="success">0</td></tr>
+            </table>
+        </div>
+        <h3 class='success'>Connection Events (0)</h3>
+        <p>No connection events found</p>
+        <h3 class='failed'>Disconnection Events (0)</h3><p class='success'>No disconnection events found</p>
+        <h3>AP Disconnect/Connect Events (3)</h3>
+            <div class='event-log' style='border-left: 4px solid #0078d4;'>
+                <table style='width:100%'><tr><th>TimeStamp</th><th>Id</th><th>Message</th></tr>
+                    <tr><td class='timestamp'>2026-02-12 22:45:26</td><td>11004</td><td>Wireless security stopped.<br><strong>MAC:</strong> 1A-2B-3C-4D-5E-6F<br><strong>SSID:</strong> HomeNetwork</td></tr>
+                    <tr><td class='timestamp'>2026-02-12 22:18:56</td><td>11004</td><td>Wireless security stopped.<br><strong>MAC:</strong> 1A-2B-3C-4D-5E-6F<br><strong>SSID:</strong> HomeNetwork</td></tr>
+                    <tr><td class='timestamp'>2026-02-11 01:29:45</td><td>11004</td><td>Wireless security stopped.<br><strong>MAC:</strong> 1A-2B-3C-4D-5E-6F<br><strong>SSID:</strong> HomeNetwork</td></tr>
+                </table>
+            </div>
+        <h3 class='failed'>Authentication Failures (0)</h3><p class='success'>No authentication failures found</p>    </div>
+</body>
+</html>
